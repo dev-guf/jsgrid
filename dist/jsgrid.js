@@ -895,6 +895,7 @@
         _createPagerButton: function(text, css, handler) {
             var $link = $("<a>").attr("href", EMPTY_HREF)
                 .html(text)
+                .on("click", function(e) { e.preventDefault() })
                 .on("click", $.proxy(handler, this));
 
             return $("<span>").addClass(css).append($link);
