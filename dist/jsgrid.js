@@ -1224,7 +1224,27 @@
                 else{
                     entry = item[key];
                 }
-                
+
+								// Sanitize CSV Output
+								const sanitizeCSVInput = (input) => {
+									// Convert the input to a string to handle non-string data
+									const strInput = String(input);
+									// Check for URLs
+									strInput = strInput.replaceAll('//', '')
+									// Characters to check for CSV injection
+									const dangerousChars = ['=', '+', '-', '@', '\t', '\r', '\n'];
+								
+									// If the input starts with a dangerous character, prepend a single quote
+									if (dangerousChars.some((char) => strInput.startsWith(char))) {
+										return `'${strInput}`;
+									}
+								
+									return strInput;
+								};
+								entry = sanitizeCSVInput(entry);
+
+
+								// Quoting 
                 if (encapsulate){
                     // Änderung 02.11.2019 - Anführungszeichen maskieren
                     if (typeof entry === 'string') {
