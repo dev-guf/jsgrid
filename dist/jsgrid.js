@@ -1228,9 +1228,10 @@
 								// Sanitize CSV Output
 								const sanitizeCSVInput = (input) => {
 									// Convert the input to a string to handle non-string data
-									const strInput = String(input).trim();
+									var strInput = String(input).trim();
 									// Check for URLs
 									strInput = strInput.replaceAll('//', '')
+									strInput = strInput.replaceAll('&2F', '')
 									// Characters to check for CSV injection
 									const dangerousChars = ['=', '+', '-', '@', '\t', '\r', '\n'];
 								
