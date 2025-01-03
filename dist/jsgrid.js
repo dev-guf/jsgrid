@@ -1228,7 +1228,7 @@
 								// Sanitize CSV Output
 								const sanitizeCSVInput = (input) => {
 									// Convert the input to a string to handle non-string data
-									const strInput = String(input);
+									const strInput = String(input).trim();
 									// Check for URLs
 									strInput = strInput.replaceAll('//', '')
 									// Characters to check for CSV injection
@@ -1242,8 +1242,7 @@
 									return strInput;
 								};
 								entry = sanitizeCSVInput(entry);
-
-
+								
 								// Quoting 
                 if (encapsulate){
                     // Änderung 02.11.2019 - Anführungszeichen maskieren
