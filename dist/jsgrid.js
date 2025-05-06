@@ -1229,17 +1229,21 @@
 								const sanitizeCSVInput = (input) => {
 									// Convert the input to a string to handle non-string data
 									var strInput = String(input).trim();
-									// Check for URLs
-									strInput = strInput.replaceAll('//', '')
-									strInput = strInput.replaceAll('&2F', '')
 									// Characters to check for CSV injection
 									const dangerousChars = ['=', '+', '-', '@', '\t', '\r', '\n'];
-								
 									// If the input starts with a dangerous character, prepend a single quote
 									if (dangerousChars.some((char) => strInput.startsWith(char))) {
 										return `'${strInput}`;
 									}
-								
+									// Check for URLs
+									strInput = strInput.replaceAll('//', '')
+									strInput = strInput.replaceAll('&2F', '')
+									// Entferne null bytes
+									strInput = strInput.replace(/\0/g, '');
+									// Entferne andere potenziell gefährliche Steuerzeichen
+									strInput = strInput.replace(/[\x00-\x1F\x7F]/g, '');
+									// Behandle Unicode-Zeichen, die als Trennzeichen missbraucht werden könnten
+									strInput = strInput.replace(/[\u2028\u2029]/g, ' ');
 									return strInput;
 								};
 								entry = sanitizeCSVInput(entry);
