@@ -1204,7 +1204,10 @@
                                 entry = resultItem[field.textField];
                             }
                             else{
-                                entry = getItem(item, field);
+															entry = getItem(item, field);
+                              if (typeof entry  === 'number') {
+                                entry = entry.toString().replace('.', ',');
+                              }
                             }
                         }
                         else{
